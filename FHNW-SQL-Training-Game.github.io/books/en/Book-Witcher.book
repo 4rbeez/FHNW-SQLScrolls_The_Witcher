@@ -13,20 +13,22 @@ PAGE {
 }
 
 PAGE {
-    EXAMPLE {
-        TABLE {
-            NPCs
-            NPC_ID | NPC_NAME                  | NPC_ROLE
-            1      | Yennefer von Vengerberg   | Sorceress
-            4      | Baron Phillip Strenger    | Quest Giver
-            5      | Triss Marygold            | Sorceress
-        }
-
-        QUERY {
-            SELECT NPC_ID, NPC_NAME FROM NPCs WHERE NPC_ROLE = 'Sorceress';
-        }
+  EXAMPLE {
+    TABLE {
+      npcs
+      npc_id | npc_name                  | npc_role
+      1      | Yennefer von Vengerberg   | Sorceress
+      4      | Baron Phillip Strenger    | Quest Giver
+      5      | Triss Marygold            | Sorceress
     }
+    QUERY {
+      SELECT npc_id, npc_name
+      FROM npcs
+      WHERE npc_role = 'Sorceress';
+    }
+  }
 }
+
 
 PAGE {
     EXAMPLE {
