@@ -7,12 +7,9 @@ METADATA {
 }
 
 PAGE {
-     Example of the first page. You can write several songs on the page.
-     A newline does not end the paragraph. \ N Forces a newline.
+     In this book you can challenge yourself with 16 different SQLite queries on the topic of the video game The Witcher.
 
-     The double line break starts a new song
-
-     <ul><li> <b> Supports html tags </b> </li> </ul>
+     Have fun!
 }
 
 PAGE {
@@ -29,4 +26,16 @@ PAGE {
              SELECT name FROM Examples;
          }
      }
+}
+
+PAGE {
+    EXAMPLE {
+        <img src="../img/The_Witcher_Logical.png"/>
+    }
+    <p>Figure: Logical diagram of the The Witcher schema.</p>
+
+    EXAMPLE {
+        <img src="../img/The_Witcher_Relational.png"/>
+    }
+    <p>Figure: Corresponding relational schema.</p>
 }

@@ -72,7 +72,7 @@ progression = [
     },
     {
         id: "Witcher",
-        tasks: ["witcher1"],
+        tasks: ["witcher1","witcher2","witcher3","witcher4","witcher5","witcher6","witcher7","witcher8","witcher9","witcher10","witcher11","witcher12","witcher13","witcher14","witcher15","witcher16"],
         requires: ["A"],
 
     }
