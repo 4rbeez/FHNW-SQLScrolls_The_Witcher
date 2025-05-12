@@ -18,11 +18,11 @@ PAGE {
       npcs
       npc_id | npc_name                  | npc_role
       1      | Yennefer von Vengerberg   | Sorceress
-      4      | Baron Phillip Strenger    | Quest Giver
+      3      | Baron Phillip Strenger    | Quest Giver
       5      | Triss Marygold            | Sorceress
     }
     QUERY {
-      SELECT * from npcs where npc_role = "Sorceress";
+      SELECT DISTINCT npc_role FROM npcs;
     }
   }
 }
