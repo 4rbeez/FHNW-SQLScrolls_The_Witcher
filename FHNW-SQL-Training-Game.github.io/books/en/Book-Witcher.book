@@ -15,17 +15,15 @@ PAGE {
 PAGE {
     EXAMPLE {
         TABLE {
-            NPC
+            NPCs
             NPC_ID | NPC_NAME                  | NPC_ROLE
             1      | Yennefer von Vengerberg   | Sorceress
-            4      | Keira Metz                | Sorceress
+            4      | Baron Phillip Strenger    | Quest Giver
             5      | Triss Marygold            | Sorceress
         }
 
         QUERY {
-            SELECT NPC_NAME
-              FROM NPC
-             WHERE NPC_ROLE = 'Sorceress';
+            SELECT NPC_ID, NPC_NAME FROM NPCs WHERE NPC_ROLE = 'Sorceress';
         }
     }
 }
