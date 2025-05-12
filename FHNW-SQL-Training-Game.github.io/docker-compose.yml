@@ -1,24 +1,19 @@
-# API_URL -> http://localhost:3000
-# POSTMARK_API_KEY -> POSTMARK_API_KEY
-# FROM_SENDER -> POSTMARK_API_KEY
-
-
-version: "3"
 services:
   db:
     container_name: mongo
-    image: mongo
+    image: mongo:8.0.9
     restart: on-failure
+    # use the named volume we declare below
     volumes:
       - mongo-data:/data/db
     ports:
       - "27017:27017"
+
   api:
     container_name: stg-api
     depends_on:
-      - 'db'
+      - db
     restart: always
-    # image: janwilhelmfhnw/api
     build: ../FHNW-SQL-Training-Game-API
     env_file:
       - .env
@@ -31,12 +26,12 @@ services:
       - IO_URL=${IO_URL}
     ports:
       - "3001:3001"
+
   frontend:
     container_name: stg-frontend
     depends_on:
-      - 'api'
+      - api
     restart: always
-    # image: janwilhelmfhnw/frontend
     build:
       context: .
       args:
@@ -44,3 +39,7 @@ services:
     ports:
       - "80:80"
       - "3000:3000"
+
+# Declare the named volume here
+volumes:
+  mongo-data:
