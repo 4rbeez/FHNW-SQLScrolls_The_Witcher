@@ -13,19 +13,21 @@ PAGE {
 }
 
 PAGE {
-     EXAMPLE {
-         TABLE {
-             Examples
-             id | name | field
-             1 | Example | From the table
-             2 | Here | Fits
-             3 | Three | Rows
-         }
+    EXAMPLE {
+        TABLE {
+            NPCs
+            NPC_ID | NPC_NAME                  | NPC_ROLE
+            1      | Yennefer von Vengerberg   | Sorceress
+            4      | Keira Metz                | Sorceress
+            5      | Triss Marygold            | Sorceress
+        }
 
-         QUERY {
-             SELECT name FROM Examples;
-         }
-     }
+        QUERY {
+            SELECT NPC_NAME
+              FROM NPC
+             WHERE NPC_ROLE = 'Sorceress';
+        }
+    }
 }
 
 PAGE {
