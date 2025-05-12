@@ -10,7 +10,7 @@ services:
     image: mongo
     restart: on-failure
     volumes:
-      - ./data:/data/db
+      - mongo-data:/data/db
     ports:
       - "27017:27017"
   api:
