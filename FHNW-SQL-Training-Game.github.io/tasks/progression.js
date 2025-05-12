@@ -72,7 +72,7 @@ progression = [
     },
     {
         id: "Witcher",
-        tasks: ["witcher1"],
+        tasks: ["300"],
         requires: ["A"],
 
     }
