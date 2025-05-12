@@ -16,10 +16,10 @@ PAGE {
   EXAMPLE {
     TABLE {
       npcs
-      npc_id | npc_name                  | npc_role
-      1      | Yennefer von Vengerberg   | Sorceress
-      4      | Baron Phillip Strenger    | Quest Giver
-      5      | Triss Marygold            | Sorceress
+      npc_id | npc_name                    | npc_role
+      1      | 'Yennefer von Vengerberg'   | 'Sorceress'
+      4      | 'Baron Phillip Strenger'    | 'Quest Giver'
+      5      | 'Triss Marygold'            | 'Sorceress'
     }
     QUERY {
       SELECT npc_id, npc_name
@@ -28,6 +28,7 @@ PAGE {
     }
   }
 }
+
 
 
 PAGE {
