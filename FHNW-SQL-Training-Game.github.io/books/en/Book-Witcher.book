@@ -22,7 +22,7 @@ PAGE {
       5|Triss Marygold|Sorceress
     }
     QUERY {
-      SELECT npc_id, npc_name FROM npcs WHERE npc_role = 'Sorceress';
+      SELECT npc_name FROM npcs WHERE npc_role = 'Sorceress';
     }
   }
 }
@@ -30,13 +30,15 @@ PAGE {
 
 
 PAGE {
-    EXAMPLE {
-        <img src="../img/The_Witcher_Logical.png"/>
-    }
-    <p>Figure: Logical diagram of the The Witcher schema.</p>
+    Logical diagram of the The Witcher schema.
+    <br />
+    <div class="book-img">
+        <img src="/img/The_Witcher_Logical.png">
+    </div>
 
-    EXAMPLE {
-        <img src="../img/The_Witcher_Relational.png"/>
-    }
-    <p>Figure: Corresponding relational schema.</p>
+    Corresponding relational schema.
+    <br />
+    <div class="book-img">
+        <img src="/img/The_Witcher_Relational.png">
+    </div>
 }
