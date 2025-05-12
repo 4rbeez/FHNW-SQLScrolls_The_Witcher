@@ -16,13 +16,13 @@ PAGE {
   EXAMPLE {
     TABLE {
       npcs
-      npc_id | npc_name                  | npc_role
-      1      | Yennefer von Vengerberg   | Sorceress
-      3      | Baron Phillip Strenger    | Quest Giver
-      5      | Triss Marygold            | Sorceress
+      npc_id|npc_name|npc_role
+      1|Yennefer von Vengerberg|Sorceress
+      3|Baron Phillip Strenger|Quest Giver
+      5|Triss Marygold|Sorceress
     }
     QUERY {
-      SELECT DISTINCT npc_role FROM npcs;
+      SELECT npc_id, npc_name FROM npcs WHERE npc_role = 'Sorceress';
     }
   }
 }
