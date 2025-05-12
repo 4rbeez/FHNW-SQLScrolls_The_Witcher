@@ -15,7 +15,7 @@ PAGE {
 PAGE {
     EXAMPLE {
         TABLE {
-            NPCs
+            NPC
             NPC_ID | NPC_NAME                  | NPC_ROLE
             1      | Yennefer von Vengerberg   | Sorceress
             4      | Keira Metz                | Sorceress
