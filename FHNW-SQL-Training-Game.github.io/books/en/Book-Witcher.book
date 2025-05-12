@@ -35,7 +35,9 @@ PAGE {
     <div class="book-img">
         <img src="/img/The_Witcher_Logical.png">
     </div>
+}
 
+PAGE {
     Corresponding relational schema.
     <br />
     <div class="book-img">
