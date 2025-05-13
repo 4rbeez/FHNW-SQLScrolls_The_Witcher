@@ -1,76 +1,71 @@
 METADATA {
     id: task-304
-    name: Witcher Quest Summaries
+    name: Witcher Gold Balance Summary
     color: purple
 }
 
 DESCRIPTION {
-For each Witcher list their name, the number of quests they have assigned, total gold reward and total XP reward, ordered by quest count desc then name.
+List each Witcher’s name and new gold balance after adding completed quest rewards, ordered by balance descending.
 }
 
 ANSWER {
-SELECT W.WITCHER_NAME, COUNT(WQ.QUEST_ID) QUEST_COUNT, SUM(Q.QUEST_GOLD) TOTAL_GOLD, SUM(Q.QUEST_XP) TOTAL_XP
+SELECT W.WITCHER_NAME, W.WITCHER_GOLD + SUM(Q.QUEST_GOLD) GOLD_BALANCE
 FROM WITCHER W
-LEFT JOIN WITCHER_QUEST WQ ON WQ.WITCHER_ID=W.WITCHER_ID
-LEFT JOIN QUEST Q         ON Q.QUEST_ID=WQ.QUEST_ID
-GROUP BY W.WITCHER_NAME
-ORDER BY QUEST_COUNT DESC, W.WITCHER_NAME;
+JOIN WITCHER_QUEST WQ ON W.WITCHER_ID=WQ.WITCHER_ID AND WQ.QUEST_STATE='Completed'
+JOIN QUEST Q         ON Q.QUEST_ID=WQ.QUEST_ID
+GROUP BY W.WITCHER_NAME, W.WITCHER_GOLD
+ORDER BY GOLD_BALANCE DESC;
 }
 
 TEST {
     TABLE {
         WITCHER
-        WITCHER_ID|WITCHER_NAME
-        1|Geralt of Rivia
-        2|Vesemir
-        3|Lambert
-    }
-    TABLE {
-        QUEST
-        QUEST_ID|QUEST_GOLD|QUEST_XP
-        1|100|200
-        2|300|500
-        6|100|50
+        WITCHER_ID|WITCHER_NAME|WITCHER_GOLD
+        1|Geralt of Rivia|100
+        2|Vesemir|50
+        3|Lambert|0
     }
     TABLE {
         WITCHER_QUEST
-        WITCHER_ID|QUEST_ID
-        1|1
-        1|2
-        2|6
+        WITCHER_ID|QUEST_ID|QUEST_STATE
+        1|1|Completed
+        1|2|Completed
+        2|1|In Progress
+    }
+    TABLE {
+        QUEST
+        QUEST_ID|QUEST_GOLD
+        1|200
+        2|300
     }
     RESULT {
-        Geralt of Rivia|2|400|700
-        Vesemir        |1|100|50
-        Lambert        |0||
+        Geralt of Rivia|600
     }
 }
 
 TEST {
     TABLE {
         WITCHER
-        WITCHER_ID|WITCHER_NAME
-        4|Eskel
-        5|Ciri
-        6|Dandelion
-    }
-    TABLE {
-        QUEST
-        QUEST_ID|QUEST_GOLD|QUEST_XP
-        4|500|750
-        7|350|450
-        9|900|1200
+        WITCHER_ID|WITCHER_NAME|WITCHER_GOLD
+        4|Eskel|20
+        5|Ciri|150
+        6|Dandelion|75
     }
     TABLE {
         WITCHER_QUEST
-        WITCHER_ID|QUEST_ID
-        4|4
-        5|9
-        6|7
+        WITCHER_ID|QUEST_ID|QUEST_STATE
+        4|3|Completed
+        5|4|Completed
+        6|4|In Progress
+    }
+    TABLE {
+        QUEST
+        QUEST_ID|QUEST_GOLD
+        3|500
+        4|400
     }
     RESULT {
-        Eskel    |1|500|750
-        Ciri     |1|900|1200
-        Dandelion|1|350|450
+        Ciri|550
+        Eskel|520
     }
 }
