@@ -12,9 +12,9 @@ ANSWER {
 SELECT WITCHER_NAME, REGION_NAME, QUEST_NAME, MIN_LEVEL, WITCHER_LEVEL, MIN_LEVEL - WITCHER_LEVEL MISSING_LEVEL
 FROM WITCHER
 JOIN WITCHER_QUEST USING(WITCHER_ID)
-JOIN QUEST         USING(QUEST_ID)
-JOIN NPC           USING(NPC_ID)
-JOIN REGION        USING(REGION_ID)
+JOIN QUEST USING(QUEST_ID)
+JOIN NPC USING(NPC_ID)
+JOIN REGION USING(REGION_ID)
 WHERE MIN_LEVEL > WITCHER_LEVEL
 ORDER BY MISSING_LEVEL DESC;
 }
@@ -22,36 +22,36 @@ ORDER BY MISSING_LEVEL DESC;
 TEST {
     TABLE {
         WITCHER
-        WITCHER_ID|WITCHER_NAME         |WITCHER_SCHOOL        |WITCHER_LEVEL
-        1         |Geralt of Rivia      |School of the Wolf    |20
-        2         |Lambert              |School of the Wolf    |15
+        WITCHER_ID|WITCHER_NAME|WITCHER_SCHOOL|WITCHER_LEVEL
+        1|Geralt of Rivia|School of the Wolf|20
+        2|Lambert|School of the Wolf|15
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID
-        1         |1
-        2         |2
+        1|1
+        2|2
     }
     TABLE {
         QUEST
-        QUEST_ID|QUEST_NAME     |QUEST_DESCRIPTION                      |NPC_ID
-        1       |Cursed Village   |Investigate the haunted hamlet          |1
-        2       |Cry Wolf         |Aid the hunters against the phantom     |2
+        QUEST_ID|QUEST_NAME|QUEST_DESCRIPTION|NPC_ID
+        1|Cursed Village|Investigate the haunted hamlet|1
+        2|Cry Wolf|Aid the hunters against the phantom|2
     }
     TABLE {
         NPC
-        NPC_ID|NPC_NAME          |NPC_ROLE       |REGION_ID
-        1     |Velen Sheriff      |Quest Giver    |2
-        2     |Skellige Captain    |Quest Giver    |3
+        NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
+        1|Velen Sheriff|Quest Giver|2
+        2|Skellige Captain|Quest Giver|3
     }
     TABLE {
         REGION
         REGION_ID|REGION_NAME|MIN_LEVEL
-        2        |Velen      |25
-        3        |Skellige    |22
+        2|Velen|25
+        3|Skellige|22
     }
     RESULT {
-        Lambert|Skellige|Cry Wolf       |22|15|7
+        Lambert|Skellige|Cry Wolf|22|15|7
         Geralt of Rivia|Velen|Cursed Village|25|20|5
     }
 }
@@ -59,36 +59,36 @@ TEST {
 TEST {
     TABLE {
         WITCHER
-        WITCHER_ID|WITCHER_NAME         |WITCHER_SCHOOL         |WITCHER_LEVEL
-        1         |Geralt of Rivia      |School of the Wolf     |18
-        2         |Eskel                |School of the Cat      |16
+        WITCHER_ID|WITCHER_NAME|WITCHER_SCHOOL|WITCHER_LEVEL
+        1|Geralt of Rivia|School of the Wolf|18
+        2|Eskel|School of the Cat|16
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID
-        1         |4
-        2         |5
+        1|4
+        2|5
     }
     TABLE {
         QUEST
-        QUEST_ID|QUEST_NAME     |QUEST_DESCRIPTION         |NPC_ID
-        4       |Keep Defense     |Defend the fortress         |1
-        5       |Clan Politics    |Negotiate with clan leaders |2
+        QUEST_ID|QUEST_NAME|QUEST_DESCRIPTION|NPC_ID
+        4|Keep Defense|Defend the fortress|1
+        5|Clan Politics|Negotiate with clan leaders|2
     }
     TABLE {
         NPC
-        NPC_ID|NPC_NAME             |NPC_ROLE     |REGION_ID
-        1     |Kaer Morhen Chief      |Quest Giver  |4
-        2     |Skellige Captain        |Quest Giver  |3
+        NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
+        1|Kaer Morhen Chief|Quest Giver|4
+        2|Skellige Captain|Quest Giver|3
     }
     TABLE {
         REGION
-        REGION_ID|REGION_NAME  |MIN_LEVEL
-        3        |Skellige      |22
-        4        |Kaer Morhen   |20
+        REGION_ID|REGION_NAME|MIN_LEVEL
+        3|Skellige|22
+        4|Kaer Morhen|20
     }
     RESULT {
-        Eskel|Skellige|Clan Politics   |22|16|6
+        Eskel|Skellige|Clan Politics|22|16|6
         Geralt of Rivia|Kaer Morhen|Keep Defense|20|18|2
     }
 }
