@@ -10,6 +10,16 @@ const Colors = {
     NONE: "col-book-white",
 };
 
+// ————————————————————————————————————————————————
+//  special Witcher scrolls
+const WITCHER_SCROLL_IDS = new Set([
+  "task-300","task-301","task-302","task-303",
+  "task-304","task-305","task-306","task-307",
+  "task-308","task-309","task-310","task-311",
+  "task-312","task-313","task-314","task-315",
+]);
+// ————————————————————————————————————————————————
+
 // Tasks are filled in main.js#initializeGameDictionaries
 const tasks = {
     asList() {
@@ -137,12 +147,17 @@ class Task extends ItemType {
         if (parsed) {
             this.id = parsed.metadata.id;
             this.type = parsed.metadata.type;
+            const imgFile = WITCHER_SCROLL_IDS.has(parsed.metadata.id)
+                ? "scroll_witcher.png"
+                : "scroll.png";
+
             this.item = new ImageItem({
-                id: this.id,
+                id:   this.id,
                 name: `${i18n.get(parsed.metadata.name)}`,
                 onclick: `Views.TASK.show('${this.id}')`,
-                url: "./img/scroll.png",
+                url: `./img/${imgFile}`,
             });
+
             this.color =
                 parsed.metadata.color && parsed.metadata.color.startsWith("col-book-")
                     ? parsed.metadata.color
