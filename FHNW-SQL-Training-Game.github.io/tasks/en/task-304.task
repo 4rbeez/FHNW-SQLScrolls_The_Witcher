@@ -9,14 +9,13 @@ List all Witcher Names, Quest Names and Monster Names even if no Witcher, Quest 
 }
 
 ANSWER {
-SELECT W.WITCHER_NAME AS Witcher_Name,
-       Q.QUEST_NAME   AS Quest_Name,
-       M.MONSTER_NAME AS Monster_Name
+SELECT W.WITCHER_NAME, Q.QUEST_NAME, M.MONSTER_NAME
 FROM WITCHER W
 CROSS JOIN QUEST Q
 CROSS JOIN MONSTER M
-LEFT JOIN WITCHER_ITEM WI ON W.WITCHER_ID = WI.WITCHER_ID
-ORDER BY Witcher_Name, Quest_Name, Monster_Name ASC;
+LEFT JOIN WITCHER_QUEST WQ ON WQ.WITCHER_ID = W.WITCHER_ID
+LEFT JOIN QUEST_MONSTER QM ON QM.QUEST_ID  = Q.QUEST_ID
+ORDER BY W.WITCHER_NAME, Q.QUEST_NAME, M.MONSTER_NAME;
 }
 
 TEST {
@@ -35,6 +34,18 @@ TEST {
         6|Imperial Audience
     }
     TABLE {
+        WITCHER_QUEST
+        WITCHER_ID|QUEST_ID|QUEST_STATE
+        1|1|Completed
+        2|2|In Progress
+    }
+    TABLE {
+        QUEST_MONSTER
+        QUEST_ID|MONSTER_ID
+        1|1
+        2|2
+    }
+    TABLE {
         MONSTER
         MONSTER_ID|MONSTER_NAME
         1|Royal Griffin
@@ -43,8 +54,8 @@ TEST {
     }
     RESULT {
         Geralt of Rivia|The Beast of White Orchard|Royal Griffin
-        Geralt of Rivia|The Beast of White Orchard|Noonwraith
-        Geralt of Rivia|The Beast of White Orchard|Werewolf
+        Lambert|Imperial Audience|Werewolf
+        Vesemir|Family Matters|Noonwraith
     }
 }
 
@@ -64,15 +75,29 @@ TEST {
         9|Scenes From a Marriage
     }
     TABLE {
+        WITCHER_QUEST
+        WITCHER_ID|QUEST_ID|QUEST_STATE
+        4|4|Not Started
+        5|9|Completed
+        6|7|In Progress
+    }
+    TABLE {
+        QUEST_MONSTER
+        QUEST_ID|MONSTER_ID
+        4|6
+        7|8
+        9|9
+    }
+    TABLE {
         MONSTER
         MONSTER_ID|MONSTER_NAME
+        6|Werewolf
         8|Forktail
         9|Ekimmara
-        10|Fiend
     }
     RESULT {
-        Ciri|Scenes From a Marriage|Forktail
         Ciri|Scenes From a Marriage|Ekimmara
-        Ciri|Scenes From a Marriage|Fiend
+        Dandelion|Of Swords and Dumplings|Forktail
+        Eskel|Wild at Heart|Werewolf
     }
 }
