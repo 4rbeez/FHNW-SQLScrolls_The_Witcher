@@ -9,10 +9,14 @@ List each Witcher’s name and new gold balance after adding completed quest rew
 }
 
 ANSWER {
-SELECT W.WITCHER_NAME, W.WITCHER_GOLD + SUM(Q.QUEST_GOLD) GOLD_BALANCE
+SELECT W.WITCHER_NAME,
+       W.WITCHER_GOLD + SUM(Q.QUEST_GOLD) AS GOLD_BALANCE
 FROM WITCHER W
-JOIN WITCHER_QUEST WQ ON W.WITCHER_ID=WQ.WITCHER_ID AND WQ.QUEST_STATE='Completed'
-JOIN QUEST Q ON Q.QUEST_ID=WQ.QUEST_ID
+JOIN WITCHER_QUEST WQ
+  ON W.WITCHER_ID = WQ.WITCHER_ID
+ AND WQ.QUEST_STATE = 'Completed'
+JOIN QUEST Q
+  ON Q.QUEST_ID = WQ.QUEST_ID
 GROUP BY W.WITCHER_NAME, W.WITCHER_GOLD
 ORDER BY GOLD_BALANCE DESC;
 }
@@ -20,52 +24,50 @@ ORDER BY GOLD_BALANCE DESC;
 TEST {
     TABLE {
         WITCHER
-        WITCHER_ID|WITCHER_NAME|WITCHER_GOLD
-        1|Geralt of Rivia|100
-        2|Vesemir|50
-        3|Lambert|0
+        WITCHER_ID|WITCHER_NAME|WITCHER_LEVEL|WITCHER_GOLD
+        1|Geralt of Rivia|20|1000
+        2|Vesemir|15|500
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
         1|1|Completed
-        1|2|Completed
-        2|1|In Progress
+        2|2|Completed
+        2|9|Completed
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_GOLD
-        1|200
+        1|100
         2|300
+        9|900
     }
     RESULT {
-        Geralt of Rivia|600
+        Vesemir|1700
+        Geralt of Rivia|1100
     }
 }
 
 TEST {
     TABLE {
         WITCHER
-        WITCHER_ID|WITCHER_NAME|WITCHER_GOLD
-        4|Eskel|20
-        5|Ciri|150
-        6|Dandelion|75
+        WITCHER_ID|WITCHER_NAME|WITCHER_LEVEL|WITCHER_GOLD
+        3|Lambert|10|500
+        4|Eskel|10|250
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        4|3|Completed
-        5|4|Completed
-        6|4|In Progress
+        3|1|Completed
+        4|5|In Progress
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_GOLD
-        3|500
-        4|400
+        1|100
+        5|800
     }
     RESULT {
-        Ciri|550
-        Eskel|520
+        Lambert|600
     }
 }

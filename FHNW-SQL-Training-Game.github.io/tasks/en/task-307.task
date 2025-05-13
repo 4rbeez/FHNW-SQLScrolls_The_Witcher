@@ -36,6 +36,7 @@ TEST {
         QUEST_ID|MONSTER_ID
         5|5
         10|10
+        10|5
     }
     TABLE {
         MONSTER

@@ -11,8 +11,8 @@ List all Witcher Names, Item Types they own, the total value of the items and th
 ANSWER {
 SELECT W.WITCHER_NAME,
        I.ITEM_TYPE,
-       SUM(I.ITEM_PRICE),
-       ROUND(AVG(I.ITEM_LEVEL),0)
+       SUM(I.ITEM_PRICE)        AS TOTAL_ITEM_VALUE,
+       ROUND(AVG(I.ITEM_LEVEL),0) AS AVERAGE_ITEM_LEVEL
 FROM WITCHER W
 JOIN WITCHER_ITEM WI ON W.WITCHER_ID = WI.WITCHER_ID
 JOIN ITEM I         ON I.ITEM_ID      = WI.ITEM_ID
@@ -29,9 +29,9 @@ TEST {
     }
     TABLE {
         ITEM
-        ITEM_ID|ITEM_NAME|ITEM_TYPE|ITEM_PRICE|ITEM_LEVEL
-        1|Silver Sword of the Griffin|Weapon|500|5
-        2|Specter Oil|Alchemy|150|3
+        ITEM_ID|ITEM_NAME|ITEM_LEVEL|ITEM_PRICE|ITEM_TYPE
+        1|Silver Sword of the Griffin|5|500|Weapon
+        2|Specter Oil|3|150|Alchemy
     }
     TABLE {
         WITCHER_ITEM
@@ -53,15 +53,15 @@ TEST {
     }
     TABLE {
         ITEM
-        ITEM_ID|ITEM_NAME|ITEM_TYPE|ITEM_PRICE|ITEM_LEVEL
-        3|Troll Ear|Alchemy|75|1
+        ITEM_ID|ITEM_NAME|ITEM_LEVEL|ITEM_PRICE|ITEM_TYPE
+        7|Moon Dust Bomb|8|300|Alchemy
     }
     TABLE {
         WITCHER_ITEM
         WITCHER_ID|ITEM_ID
-        4|3
+        4|7
     }
     RESULT {
-        Eskel|Alchemy|75|1
+        Eskel|Alchemy|300|8
     }
 }

@@ -50,19 +50,21 @@ TEST {
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME|WITCHER_GOLD
-        3|Lambert|400
+        3|Lambert|500
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|QUEST_GOLD|QUEST_XP
-        3|A Towerful of Mice|250|400
+        1|The Beast of White Orchard|100|200
+        10|The Night of Long Fangs|1200|1500
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        3|3|Completed
+        3|1|Completed
+        3|10|In Progress
     }
     RESULT {
-        Lambert|250|400
+        Lambert|1300|1700
     }
 }

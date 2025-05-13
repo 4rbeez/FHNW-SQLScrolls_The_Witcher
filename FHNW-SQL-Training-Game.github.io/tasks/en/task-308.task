@@ -23,21 +23,19 @@ TEST {
         ITEM
         ITEM_ID|ITEM_NAME|ITEM_LEVEL
         5|Wolf School Armor|15
-        6|Bear School Armor|20
     }
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME|WITCHER_LEVEL
-        2|Vesemir|15
+        3|Lambert|10
     }
     TABLE {
         WITCHER_ITEM
         WITCHER_ID|ITEM_ID
-        2|5
-        2|6
+        3|5
     }
     RESULT {
-        Bear School Armor|Vesemir|20|15|5
+        Wolf School Armor|Lambert|15|10|5
     }
 }
 
@@ -45,19 +43,19 @@ TEST {
     TABLE {
         ITEM
         ITEM_ID|ITEM_NAME|ITEM_LEVEL
-        7|Griffin School Armor|25
+        8|Griffin School Armor|12
     }
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME|WITCHER_LEVEL
-        1|Geralt of Rivia|20
+        4|Eskel|10
     }
     TABLE {
         WITCHER_ITEM
         WITCHER_ID|ITEM_ID
-        1|7
+        4|8
     }
     RESULT {
-        Griffin School Armor|Geralt of Rivia|25|20|5
+        Griffin School Armor|Eskel|12|10|2
     }
 }

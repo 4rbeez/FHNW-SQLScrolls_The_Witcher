@@ -23,35 +23,37 @@ TEST {
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        1|Regis|Vampire|1
-        2|Gaunter ODimm|Trickster|2
-        3|Yennefer von Vengerberg|Sorceress|4
+        1|Yennefer von Vengerberg|Sorceress|4
+        9|Gaunter ODimm|Mysterious Man|2
+        10|Regis|Vampire Ally|6
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID
-        1|A Night to Remember|1
-        2|Deal with the Devil|2
-        3|Family Matters|3
+        1|The Beast of White Orchard|1
+        9|Scenes From a Marriage|9
+        10|The Night of Long Fangs|10
     }
     TABLE {
         QUEST_MONSTER
         QUEST_ID|MONSTER_ID
         1|1
-        1|2
-        2|3
-        3|4
+        1|4
+        9|9
+        10|10
+        10|5
     }
     TABLE {
         MONSTER
         MONSTER_ID|MONSTER_NAME|MONSTER_LEVEL|MONSTER_TYPE
-        1|Ancient Leshen|30|Spirit
-        2|Higher Vampire|20|Specter
-        3|Devil Hydra|22|Draconid
-        4|Neck|5|Specter
+        1|Royal Griffin|6|Hybrid
+        4|Basilisk|10|Draconid
+        5|Katakan|20|Vampire
+        9|Ekimmara|22|Vampire
+        10|Fiend|25|Relict
     }
     RESULT {
-        Regis|25
+        Regis|22.5
         Gaunter ODimm|22
     }
 }
@@ -60,30 +62,34 @@ TEST {
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        1|Regis|Vampire|1
-        2|Baron Phillip Strenger|Quest Giver|2
+        4|Keira Metz|Sorceress|2
+        5|Triss Marygold|Sorceress|3
+        9|Gaunter ODimm|Mysterious Man|2
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID
-        1|A Night to Remember|1
-        2|Family Matters|2
+        3|A Towerful of Mice|4
+        4|Wild at Heart|5
+        9|Scenes From a Marriage|9
     }
     TABLE {
         QUEST_MONSTER
         QUEST_ID|MONSTER_ID
-        1|1
-        1|2
-        2|3
+        3|3
+        3|5
+        4|6
+        9|9
     }
     TABLE {
         MONSTER
         MONSTER_ID|MONSTER_NAME|MONSTER_LEVEL|MONSTER_TYPE
-        1|Ancient Leshen|30|Spirit
-        2|Higher Vampire|20|Specter
-        3|Noonwraith|5|Specter
+        3|Water Hag|7|Necrophage
+        5|Katakan|20|Vampire
+        6|Werewolve|15|Therianthropes
+        9|Ekimmara|22|Vampire
     }
     RESULT {
-        Regis|25
+        Gaunter ODimm|22
     }
 }

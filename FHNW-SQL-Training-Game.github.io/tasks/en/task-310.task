@@ -57,14 +57,14 @@ TEST {
     TABLE {
         REGION
         REGION_ID|REGION_NAME
+        2|Velen
         4|Skellige
-        1|White Orchard
     }
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        4|Crach an Craite|Chief|4
-        1|Yennefer von Vengerberg|Sorceress|1
+        4|Keira Metz|Sorceress|2
+        1|Yennefer von Vengerberg|Sorceress|4
     }
     TABLE {
         QUEST
@@ -79,7 +79,7 @@ TEST {
         1|1|Completed
     }
     RESULT {
-        Skellige|1|250|400
-        White Orchard|1|100|200
+        Velen|1|250|400
+        Skellige|1|100|200
     }
 }

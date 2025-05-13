@@ -33,18 +33,18 @@ TEST {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
         1|1|Completed
-        1|2|Completed
-        2|3|Completed
+        2|2|Completed
+        2|9|Completed
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|QUEST_DESCRIPTION|QUEST_GOLD|QUEST_XP|NPC_ID
-        1|Griffin Hunt|Slay the griffin in White Orchard|100|1000|1
-        2|Bandit Camp|Clear out the bandit hideout|200|1200|2
-        3|Cursed Village|Investigate the haunted hamlet|150|800|3
+        1|The Beast of White Orchard|Investigate the griffin terrorizing the region.|100|200|1
+        2|Family Matters|Help the Bloody Baron find his wife and daughter.|300|500|3
+        9|Scenes From a Marriage|Retrieve Iris rose from the Painted World.|900|1200|9
     }
     RESULT {
-        Geralt of Rivia|1000|300|1300
+        Vesemir|500|1200|1700
     }
 }
 
@@ -52,24 +52,20 @@ TEST {
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME|WITCHER_SCHOOL|WITCHER_GOLD
-        3|Lambert|School of the Wolf|600
+        3|Lambert|School of the Wolf|500
         4|Eskel|School of the Cat|250
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        3|5|Completed
-        3|6|Completed
-        4|4|Completed
+        3|1|Completed
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|QUEST_DESCRIPTION|QUEST_GOLD|QUEST_XP|NPC_ID
-        4|Keep Defense|Defend the fortress|100|300|4
-        5|Clan Politics|Negotiate with clan leaders|200|400|5
-        6|Map Exploration|Chart the caves of Kaer Morhen|50|300|6
+        1|The Beast of White Orchard|Investigate the griffin terrorizing the region.|100|200|1
     }
     RESULT {
-        Lambert|600|250|850
+        Lambert|500|100|600
     }
 }

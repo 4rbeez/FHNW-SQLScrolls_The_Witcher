@@ -26,27 +26,24 @@ TEST {
     TABLE {
         REGION
         REGION_ID|REGION_NAME
-        1|White Orchard
         2|Velen
-        3|Skellige
+        3|Novigrad
     }
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        1|Beauclair Guard|Guard|1
-        2|White Orchard Innkeeper|Vendor|1
-        3|Velen Sheriff|Quest Giver|2
+        3|Baron Phillip Strenger|Quest Giver|2
+        2|Emhyr var Emreis|Emperor|3
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID|QUEST_GOLD|QUEST_XP
-        1|Griffin Hunt|1|100|1000
-        2|Bandit Camp|2|200|1200
-        3|Cursed Village|3|150|800
+        2|Family Matters|3|300|500
+        6|Imperial Audience|2|100|50
     }
     RESULT {
-        White Orchard|2|150|1100
-        Velen|1|150|800
+        Velen|1|300|500
+        Novigrad|1|100|50
     }
 }
 
@@ -54,24 +51,23 @@ TEST {
     TABLE {
         REGION
         REGION_ID|REGION_NAME
-        1|Temeria
-        2|Nilfgaard
+        4|Skellige
+        6|Toussaint
     }
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        1|Emhyr var Emreis|Emperor|2
-        2|Foltest|King|1
+        1|Yennefer von Vengerberg|Sorceress|4
+        6|Anna Henrietta|Duchess|6
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID|QUEST_GOLD|QUEST_XP
-        1|Border Skirmish|1|50|500
-        2|Royal Decree|2|150|700
-        3|Imperial Escort|1|100|600
+        1|The Beast of White Orchard|1|100|200
+        5|A Tome Entombed|6|800|1000
     }
     RESULT {
-        Nilfgaard|2|75|550
-        Temeria|1|150|700
+        Toussaint|1|800|1000
+        Skellige|1|100|200
     }
 }
