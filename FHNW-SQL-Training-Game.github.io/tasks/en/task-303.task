@@ -49,23 +49,23 @@ TEST {
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME|WITCHER_SCHOOL
-        2|Vesemir|School of the Wolf
+        3|Lambert|School of the Wolf
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|QUEST_DESCRIPTION|NPC_ID
-        6|Imperial Audience|Talk to Emhyr var Emreis|2
+        10|The Night of Long Fangs|Choose between Regis or Syanna to stop the threat.|10
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID
-        2|6
+        3|10
     }
     TABLE {
         QUEST_MONSTER
         QUEST_ID|MONSTER_ID
     }
     RESULT {
-        Vesemir|Imperial Audience|Talk to Emhyr var Emreis
+        Lambert|The Night of Long Fangs|Choose between Regis or Syanna to stop the threat.
     }
 }
