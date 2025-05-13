@@ -5,7 +5,7 @@ METADATA {
 }
 
 DESCRIPTION {
-List all Region Names, the 'Number of Quests', 'Average Gold Reward' and 'Average XP Reward', order the result by Number of Quests, Average Gold Reward and Average XP Reward all in descending order.
+MAN List all Region Names, the 'Number of Quests', 'Average Gold Reward' and 'Average XP Reward', order the result by Number of Quests, Average Gold Reward and Average XP Reward all in descending order.
 }
 
 ANSWER {
