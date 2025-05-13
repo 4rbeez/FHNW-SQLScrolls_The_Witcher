@@ -50,7 +50,7 @@ TEST {
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME|WITCHER_GOLD
-        3|Lambert|500
+        3|Lambert|400
     }
     TABLE {
         QUEST
@@ -60,9 +60,9 @@ TEST {
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        3|3|Not Started
+        3|3|Completed
     }
     RESULT {
-        -- no rows --
+        Lambert|250|400
     }
 }

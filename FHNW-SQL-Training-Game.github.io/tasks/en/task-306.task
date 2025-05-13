@@ -53,13 +53,15 @@ TEST {
     }
     TABLE {
         ITEM
-        (none)
+        ITEM_ID|ITEM_NAME|ITEM_TYPE|ITEM_PRICE|ITEM_LEVEL
+        3|Troll Ear|Alchemy|75|1
     }
     TABLE {
         WITCHER_ITEM
-        (none)
+        WITCHER_ID|ITEM_ID
+        4|3
     }
     RESULT {
-        -- no rows --
+        Eskel|Alchemy|75|1
     }
 }

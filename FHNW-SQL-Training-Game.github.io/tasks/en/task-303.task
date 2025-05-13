@@ -11,8 +11,8 @@ List all Witchers, Quest Names and Quest Descriptions from Quests which have no 
 ANSWER {
 SELECT DISTINCT W.WITCHER_NAME, Q.QUEST_NAME, Q.QUEST_DESCRIPTION
 FROM WITCHER W
-JOIN WITCHER_QUEST WQ ON W.WITCHER_ID = WQ.WITCHER_ID
-JOIN QUEST Q ON WQ.QUEST_ID = Q.QUEST_ID
+JOIN WITCHER_QUEST WQ    ON W.WITCHER_ID = WQ.WITCHER_ID
+JOIN QUEST Q             ON Q.QUEST_ID   = WQ.QUEST_ID
 WHERE Q.QUEST_ID NOT IN (SELECT QUEST_ID FROM QUEST_MONSTER)
 ORDER BY W.WITCHER_NAME ASC, Q.QUEST_NAME ASC;
 }
@@ -21,22 +21,35 @@ TEST {
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME
+        2|Vesemir
         4|Eskel
+        5|Ciri
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|QUEST_DESCRIPTION
-        4|Wild at Heart|Find and fight the Werewolf
         6|Imperial Audience|Talk to Emhyr var Emreis
+        9|Scenes From a Marriage|Unravel the mysteries at Ciri's wedding
+        12|Of Swords and Dumplings|Collect dumplings for hay stack
+    }
+    TABLE {
+        WITCHER_QUEST
+        WITCHER_ID|QUEST_ID|QUEST_STATE
+        2|6|Not Started
+        4|9|Completed
+        5|12|In Progress
     }
     TABLE {
         QUEST_MONSTER
         QUEST_ID|MONSTER_ID
+        1|1
+        3|2
         4|6
-        6|2
     }
     RESULT {
-        -- no rows --
+        Vesemir|Imperial Audience|Talk to Emhyr var Emreis
+        Eskel|Scenes From a Marriage|Unravel the mysteries at Ciri's wedding
+        Ciri|Of Swords and Dumplings|Collect dumplings for hay stack
     }
 }
 
@@ -44,18 +57,34 @@ TEST {
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME
-        2|Vesemir
+        1|Geralt of Rivia
+        3|Lambert
+        6|Dandelion
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|QUEST_DESCRIPTION
-        6|Imperial Audience|Talk to Emhyr var Emreis
+        2|Family Matters|Resolve the orphan issue in Toussaint
+        5|A Tome Entombed|Retrieve the missing tome
+        7|Dead Man's Party|Join the spectral ball
+    }
+    TABLE {
+        WITCHER_QUEST
+        WITCHER_ID|QUEST_ID|QUEST_STATE
+        1|2|Completed
+        3|5|In Progress
+        6|7|Not Started
     }
     TABLE {
         QUEST_MONSTER
-        (none)
+        QUEST_ID|MONSTER_ID
+        2|2
+        5|5
+        7|8
     }
     RESULT {
-        Vesemir|Imperial Audience|Talk to Emhyr var Emreis
+        Geralt of Rivia|Family Matters|Resolve the orphan issue in Toussaint
+        Lambert|A Tome Entombed|Retrieve the missing tome
+        Dandelion|Dead Man's Party|Join the spectral ball
     }
 }

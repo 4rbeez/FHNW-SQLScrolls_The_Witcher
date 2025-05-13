@@ -1,3 +1,5 @@
+# tasks/en/task-314.task
+
 METADATA {
     id: task-314
     name: Incomplete Quests by Region
@@ -54,24 +56,24 @@ TEST {
     TABLE {
         REGION
         REGION_ID|REGION_NAME
-        6|Toussaint
+        3|Novigrad|10
     }
     TABLE {
         NPC
         NPC_ID|NPC_NAME|REGION_ID
-        6|Anna Henrietta|6
+        1|Emhyr var Emreis|3
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID
-        5|A Tome Entombed|6
+        6|Imperial Audience|1
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        4|5|In Progress
+        2|6|Not Started
     }
     RESULT {
-        -- no rows --
+        Novigrad|Imperial Audience
     }
 }

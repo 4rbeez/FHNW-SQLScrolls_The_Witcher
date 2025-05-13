@@ -9,14 +9,14 @@ List all Region Names, the Count of all completed Quests (QUESTS_COMPLETED), the
 }
 
 ANSWER {
-SELECT R.REGION_NAME,
-       COUNT(Q.QUEST_ID)   AS QUESTS_COMPLETED,
-       SUM(Q.QUEST_GOLD)   AS GOLD_EARNED,
-       SUM(Q.QUEST_XP)     AS XP_EARNED
+SELECT R.REGION_NAME, 
+       COUNT(Q.QUEST_ID) AS QUESTS_COMPLETED, 
+       SUM(Q.QUEST_GOLD) AS GOLD_EARNED, 
+       SUM(Q.QUEST_XP)   AS XP_EARNED
 FROM REGION R
 JOIN NPC N            ON N.REGION_ID = R.REGION_ID
-JOIN QUEST Q          ON Q.NPC_ID = N.NPC_ID
-JOIN WITCHER_QUEST WQ ON Q.QUEST_ID = WQ.QUEST_ID
+JOIN QUEST Q          ON Q.NPC_ID    = N.NPC_ID
+JOIN WITCHER_QUEST WQ ON Q.QUEST_ID  = WQ.QUEST_ID
 WHERE WQ.QUEST_STATE = 'Completed'
 GROUP BY R.REGION_NAME
 ORDER BY QUESTS_COMPLETED DESC, GOLD_EARNED DESC, XP_EARNED DESC;
@@ -27,26 +27,29 @@ TEST {
         REGION
         REGION_ID|REGION_NAME
         3|Novigrad
+        2|Velen
     }
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
         2|Emhyr var Emreis|Emperor|3
+        3|Baron Phillip Strenger|Quest Giver|2
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID|QUEST_GOLD|QUEST_XP
         6|Imperial Audience|2|100|50
+        2|Family Matters|3|300|500
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        2|6|Not Started
-        1|6|Not Started
-        3|6|Not Started
+        1|6|Completed
+        2|2|Completed
     }
     RESULT {
-        -- no rows --
+        Velen|1|300|500
+        Novigrad|1|100|50
     }
 }
 
@@ -54,25 +57,29 @@ TEST {
     TABLE {
         REGION
         REGION_ID|REGION_NAME
-        2|Velen
+        4|Skellige
+        1|White Orchard
     }
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        3|Baron Phillip Strenger|Quest Giver|2
+        4|Crach an Craite|Chief|4
+        1|Yennefer von Vengerberg|Sorceress|1
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID|QUEST_GOLD|QUEST_XP
-        2|Family Matters|3|300|500
+        3|A Towerful of Mice|4|250|400
+        1|The Beast of White Orchard|1|100|200
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        1|2|In Progress
-        2|2|Completed
+        3|3|Completed
+        1|1|Completed
     }
     RESULT {
-        Velen|1|300|500
+        Skellige|1|250|400
+        White Orchard|1|100|200
     }
 }

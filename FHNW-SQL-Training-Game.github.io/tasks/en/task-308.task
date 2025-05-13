@@ -38,7 +38,6 @@ TEST {
     }
     RESULT {
         Bear School Armor|Vesemir|20|15|5
-        Wolf School Armor|Vesemir|15|15|0
     }
 }
 
@@ -46,7 +45,7 @@ TEST {
     TABLE {
         ITEM
         ITEM_ID|ITEM_NAME|ITEM_LEVEL
-        4|Steel Sword of Gerald|1
+        7|Griffin School Armor|25
     }
     TABLE {
         WITCHER
@@ -56,9 +55,9 @@ TEST {
     TABLE {
         WITCHER_ITEM
         WITCHER_ID|ITEM_ID
-        1|4
+        1|7
     }
     RESULT {
-        -- no rows --
+        Griffin School Armor|Geralt of Rivia|25|20|5
     }
 }

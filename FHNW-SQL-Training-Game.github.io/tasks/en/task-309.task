@@ -55,29 +55,29 @@ TEST {
     TABLE {
         REGION
         REGION_ID|REGION_NAME|MIN_LEVEL
-        2|Velen|5
+        4|Skellige|15
     }
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        3|Baron Phillip Strenger|Quest Giver|2
+        1|Yennefer von Vengerberg|Sorceress|4
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID
-        2|Family Matters|3
+        6|Imperial Audience|2
     }
     TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME|WITCHER_LEVEL
-        2|Vesemir|15
+        2|Vesemir|10
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        2|2|Completed
+        2|6|In Progress
     }
     RESULT {
-        -- no rows --
+        Vesemir|Skellige|Imperial Audience|15|10|5
     }
 }
