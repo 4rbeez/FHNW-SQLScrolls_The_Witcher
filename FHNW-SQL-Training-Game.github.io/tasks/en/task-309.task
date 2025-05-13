@@ -9,75 +9,86 @@ List all Witcher Names, Region Names, Quest Names, Region Minimal Levels, Witche
 }
 
 ANSWER {
-SELECT W.WITCHER_NAME, R.REGION_NAME, Q.QUEST_NAME, R.MIN_LEVEL, W.WITCHER_LEVEL,
-       R.MIN_LEVEL - W.WITCHER_LEVEL AS MISSING_LEVEL
-FROM WITCHER W
-JOIN WITCHER_QUEST WQ ON W.WITCHER_ID = WQ.WITCHER_ID
-JOIN QUEST Q          ON Q.QUEST_ID = WQ.QUEST_ID
-JOIN NPC N            ON N.NPC_ID = Q.NPC_ID
-JOIN REGION R         ON R.REGION_ID = N.REGION_ID
-WHERE R.MIN_LEVEL > W.WITCHER_LEVEL
+SELECT WITCHER_NAME, REGION_NAME, QUEST_NAME, MIN_LEVEL, WITCHER_LEVEL, MIN_LEVEL - WITCHER_LEVEL MISSING_LEVEL
+FROM WITCHER
+JOIN WITCHER_QUEST USING(WITCHER_ID)
+JOIN QUEST         USING(QUEST_ID)
+JOIN NPC           USING(NPC_ID)
+JOIN REGION        USING(REGION_ID)
+WHERE MIN_LEVEL > WITCHER_LEVEL
 ORDER BY MISSING_LEVEL DESC;
 }
 
 TEST {
     TABLE {
-        REGION
-        REGION_ID|REGION_NAME|MIN_LEVEL
-        5|Kaer Morhen|20
-    }
-    TABLE {
-        NPC
-        NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        6|Anna Henrietta|Duchess|6
-    }
-    TABLE {
-        QUEST
-        QUEST_ID|QUEST_NAME|NPC_ID
-        5|A Tome Entombed|6
-    }
-    TABLE {
         WITCHER
-        WITCHER_ID|WITCHER_NAME|WITCHER_LEVEL
-        3|Lambert|10
+        WITCHER_ID|WITCHER_NAME         |WITCHER_SCHOOL        |WITCHER_LEVEL
+        1         |Geralt of Rivia      |School of the Wolf    |20
+        2         |Lambert              |School of the Wolf    |15
     }
     TABLE {
         WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        3|5|Not Started
+        WITCHER_ID|QUEST_ID
+        1         |1
+        2         |2
+    }
+    TABLE {
+        QUEST
+        QUEST_ID|QUEST_NAME     |QUEST_DESCRIPTION                      |NPC_ID
+        1       |Cursed Village   |Investigate the haunted hamlet          |1
+        2       |Cry Wolf         |Aid the hunters against the phantom     |2
+    }
+    TABLE {
+        NPC
+        NPC_ID|NPC_NAME          |NPC_ROLE       |REGION_ID
+        1     |Velen Sheriff      |Quest Giver    |2
+        2     |Skellige Captain    |Quest Giver    |3
+    }
+    TABLE {
+        REGION
+        REGION_ID|REGION_NAME|MIN_LEVEL
+        2        |Velen      |25
+        3        |Skellige    |22
     }
     RESULT {
-        Lambert|Kaer Morhen|A Tome Entombed|20|10|10
+        Lambert|Skellige|Cry Wolf       |22|15|7
+        Geralt of Rivia|Velen|Cursed Village|25|20|5
     }
 }
 
 TEST {
     TABLE {
-        REGION
-        REGION_ID|REGION_NAME|MIN_LEVEL
-        4|Skellige|15
-    }
-    TABLE {
-        NPC
-        NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        1|Yennefer von Vengerberg|Sorceress|4
-    }
-    TABLE {
-        QUEST
-        QUEST_ID|QUEST_NAME|NPC_ID
-        6|Imperial Audience|2
-    }
-    TABLE {
         WITCHER
-        WITCHER_ID|WITCHER_NAME|WITCHER_LEVEL
-        2|Vesemir|10
+        WITCHER_ID|WITCHER_NAME         |WITCHER_SCHOOL         |WITCHER_LEVEL
+        1         |Geralt of Rivia      |School of the Wolf     |18
+        2         |Eskel                |School of the Cat      |16
     }
     TABLE {
         WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        2|6|In Progress
+        WITCHER_ID|QUEST_ID
+        1         |4
+        2         |5
+    }
+    TABLE {
+        QUEST
+        QUEST_ID|QUEST_NAME     |QUEST_DESCRIPTION         |NPC_ID
+        4       |Keep Defense     |Defend the fortress         |1
+        5       |Clan Politics    |Negotiate with clan leaders |2
+    }
+    TABLE {
+        NPC
+        NPC_ID|NPC_NAME             |NPC_ROLE     |REGION_ID
+        1     |Kaer Morhen Chief      |Quest Giver  |4
+        2     |Skellige Captain        |Quest Giver  |3
+    }
+    TABLE {
+        REGION
+        REGION_ID|REGION_NAME  |MIN_LEVEL
+        3        |Skellige      |22
+        4        |Kaer Morhen   |20
     }
     RESULT {
-        Vesemir|Skellige|Imperial Audience|15|10|5
+        Eskel|Skellige|Clan Politics   |22|16|6
+        Geralt of Rivia|Kaer Morhen|Keep Defense|20|18|2
     }
 }
