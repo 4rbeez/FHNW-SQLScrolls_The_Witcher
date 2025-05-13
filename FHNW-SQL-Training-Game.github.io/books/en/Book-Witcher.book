@@ -11,6 +11,11 @@ PAGE {
 
      Have fun!
 
+  <p>
+    📄 Download the README: 
+    <a href="/README.docx" target="_blank" download>README.docx</a>
+  </p>
+
     <br />
     <div class="witcher-title-img">
         <img src="/img/witcher_title.png">
