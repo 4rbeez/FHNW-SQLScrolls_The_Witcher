@@ -1,76 +1,65 @@
 METADATA {
-    id: task-300
-    name: Witcher Unstarted Quests
+    id: task-306
+    name: Witcher Item Aggregates
     color: purple
 }
 
 DESCRIPTION {
-    List the QUEST_ID, QUEST_NAME, QUEST_GOLD and QUEST_XP for all quests assigned
-    to Geralt of Rivia that are not yet started. Order first by gold reward ascending,
-    then by experience points ascending.
+List all Witcher Names, Item Types they own, the total value of the items and the average level of the items (Rounded to whole numbers). Group them by the Witcher Names and Item Types and Order them in ascending order by Witcher Name and Item Type.
 }
 
 ANSWER {
-    SELECT 
-      Q.QUEST_ID   AS Quest_ID,
-      Q.QUEST_NAME AS Quest_Name,
-      Q.QUEST_GOLD AS Gold_Reward,
-      Q.QUEST_XP   AS XP_Reward
-    FROM QUEST Q
-    JOIN WITCHER_QUEST WQ ON Q.QUEST_ID = WQ.QUEST_ID
-    JOIN WITCHER W ON W.WITCHER_ID = WQ.WITCHER_ID
-    WHERE W.WITCHER_NAME = 'Geralt of Rivia'
-      AND WQ.QUEST_STATE = 'Not Started'
-    ORDER BY Q.QUEST_GOLD ASC, Q.QUEST_XP ASC;
+SELECT W.WITCHER_NAME,
+       I.ITEM_TYPE,
+       SUM(I.ITEM_PRICE)          AS 'Total Item Value',
+       ROUND(AVG(I.ITEM_LEVEL),0) AS 'Average Item Level'
+FROM WITCHER W
+JOIN WITCHER_ITEM WI ON W.WITCHER_ID = WI.WITCHER_ID
+JOIN ITEM I         ON I.ITEM_ID      = WI.ITEM_ID
+GROUP BY W.WITCHER_NAME, I.ITEM_TYPE
+ORDER BY W.WITCHER_NAME ASC, I.ITEM_TYPE ASC;
 }
 
 TEST {
     TABLE {
-        QUEST
-        QUEST_ID|QUEST_NAME|QUEST_GOLD|QUEST_XP
-        1|Bandit Camp|100|200
-        2|Wolf Hunt|150|300
-        3|Ghost Investigation|200|400
-    }
-    TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME
         1|Geralt of Rivia
-        2|Ciri of Cintra
+        2|Vesemir
     }
     TABLE {
-        WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        1|1|Not Started
-        1|2|Completed
-        1|3|Not Started
+        ITEM
+        ITEM_ID|ITEM_NAME|ITEM_TYPE|ITEM_PRICE|ITEM_LEVEL
+        1|Silver Sword of the Griffin|Weapon|500|5
+        2|Specter Oil|Alchemy|150|3
+    }
+    TABLE {
+        WITCHER_ITEM
+        WITCHER_ID|ITEM_ID
+        1|1
+        1|2
     }
     RESULT {
-        1|Bandit Camp|100|200
-        3|Ghost Investigation|200|400
+        Geralt of Rivia|Alchemy|150|3
+        Geralt of Rivia|Weapon|500|5
     }
 }
 
 TEST {
     TABLE {
-        QUEST
-        QUEST_ID|QUEST_NAME|QUEST_GOLD|QUEST_XP
-        4|Drowners at Dawn|120|240
-        5|Foglets at Dusk|80|160
-    }
-    TABLE {
         WITCHER
         WITCHER_ID|WITCHER_NAME
-        1|Geralt of Rivia
+        4|Eskel
     }
     TABLE {
-        WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        1|4|Not Started
-        1|5|Not Started
+        ITEM
+        (none)
+    }
+    TABLE {
+        WITCHER_ITEM
+        (none)
     }
     RESULT {
-        4|Drowners at Dawn|120|240
-        5|Foglets at Dusk|80|160
+        -- no rows --
     }
 }

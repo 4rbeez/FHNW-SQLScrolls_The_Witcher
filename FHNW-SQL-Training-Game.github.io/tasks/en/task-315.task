@@ -1,76 +1,72 @@
+# tasks/en/task-315.task
+
 METADATA {
-    id: task-300
-    name: Witcher Unstarted Quests
+    id: task-315
+    name: Richest Witcher
     color: purple
 }
 
 DESCRIPTION {
-    List the QUEST_ID, QUEST_NAME, QUEST_GOLD and QUEST_XP for all quests assigned
-    to Geralt of Rivia that are not yet started. Order first by gold reward ascending,
-    then by experience points ascending.
+Find out, which Witcher has the most gold after adding the gold from completed quests, By listing the name of the Witcher, their gold balance from the start, the sum of the gold earned from completed quests (QUEST_GOLD_EARNED), and the sum of both amounts together (TOTAL_GOLD_BALANCE). Only list the Witcher with the most gold.
 }
 
 ANSWER {
-    SELECT 
-      Q.QUEST_ID   AS Quest_ID,
-      Q.QUEST_NAME AS Quest_Name,
-      Q.QUEST_GOLD AS Gold_Reward,
-      Q.QUEST_XP   AS XP_Reward
-    FROM QUEST Q
-    JOIN WITCHER_QUEST WQ ON Q.QUEST_ID = WQ.QUEST_ID
-    JOIN WITCHER W ON W.WITCHER_ID = WQ.WITCHER_ID
-    WHERE W.WITCHER_NAME = 'Geralt of Rivia'
-      AND WQ.QUEST_STATE = 'Not Started'
-    ORDER BY Q.QUEST_GOLD ASC, Q.QUEST_XP ASC;
+SELECT W.WITCHER_NAME, W.WITCHER_GOLD,
+       SUM(Q.QUEST_GOLD)                AS QUEST_GOLD_EARNED,
+       W.WITCHER_GOLD + SUM(Q.QUEST_GOLD) AS TOTAL_GOLD_BALANCE
+FROM WITCHER W
+JOIN WITCHER_QUEST WQ ON W.WITCHER_ID = WQ.WITCHER_ID
+JOIN QUEST Q          ON Q.QUEST_ID = WQ.QUEST_ID
+WHERE WQ.QUEST_STATE = 'Completed'
+GROUP BY W.WITCHER_NAME
+ORDER BY TOTAL_GOLD_BALANCE DESC
+LIMIT 1;
 }
 
 TEST {
     TABLE {
-        QUEST
-        QUEST_ID|QUEST_NAME|QUEST_GOLD|QUEST_XP
-        1|Bandit Camp|100|200
-        2|Wolf Hunt|150|300
-        3|Ghost Investigation|200|400
+        WITCHER
+        WITCHER_ID|WITCHER_NAME|WITCHER_GOLD
+        1|Geralt of Rivia|1000
+        2|Vesemir|500
     }
     TABLE {
-        WITCHER
-        WITCHER_ID|WITCHER_NAME
-        1|Geralt of Rivia
-        2|Ciri of Cintra
+        QUEST
+        QUEST_ID|QUEST_NAME|QUEST_GOLD
+        1|The Beast of White Orchard|100
+        2|Family Matters|300
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        1|1|Not Started
-        1|2|Completed
-        1|3|Not Started
+        1|1|Completed
+        2|2|Completed
     }
     RESULT {
-        1|Bandit Camp|100|200
-        3|Ghost Investigation|200|400
+        Geralt of Rivia|1000|100|1100
     }
 }
 
 TEST {
     TABLE {
-        QUEST
-        QUEST_ID|QUEST_NAME|QUEST_GOLD|QUEST_XP
-        4|Drowners at Dawn|120|240
-        5|Foglets at Dusk|80|160
+        WITCHER
+        WITCHER_ID|WITCHER_NAME|WITCHER_GOLD
+        3|Lambert|500
+        4|Eskel|250
     }
     TABLE {
-        WITCHER
-        WITCHER_ID|WITCHER_NAME
-        1|Geralt of Rivia
+        QUEST
+        QUEST_ID|QUEST_NAME|QUEST_GOLD
+        3|A Towerful of Mice|250
+        4|Wild at Heart|500
     }
     TABLE {
         WITCHER_QUEST
         WITCHER_ID|QUEST_ID|QUEST_STATE
-        1|4|Not Started
-        1|5|Not Started
+        3|3|Not Started
+        4|4|In Progress
     }
     RESULT {
-        4|Drowners at Dawn|120|240
-        5|Foglets at Dusk|80|160
+        -- no rows --
     }
 }
