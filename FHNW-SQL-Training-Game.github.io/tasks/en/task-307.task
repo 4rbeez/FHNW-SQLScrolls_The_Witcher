@@ -23,29 +23,29 @@ TEST {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
         6|Anna Henrietta|Duchess|6
-        10|Regis|Vampire Ally|6
+        9|Gaunter ODimm|Mysterious Man|2
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID
         5|A Tome Entombed|6
-        10|The Night of Long Fangs|10
+        9|Scenes From a Marriage|9
     }
     TABLE {
         QUEST_MONSTER
         QUEST_ID|MONSTER_ID
         5|5
-        10|10
-        10|5
+        9|9
     }
     TABLE {
         MONSTER
         MONSTER_ID|MONSTER_NAME|MONSTER_LEVEL|MONSTER_TYPE
         5|Katakan|20|Vampire
-        10|Fiend|25|Relict
+        9|Ekimmara|22|Vampire
     }
     RESULT {
         Anna Henrietta|A Tome Entombed|Katakan
+        Gaunter ODimm|Scenes From a Marriage|Ekimmara
     }
 }
 
@@ -53,24 +53,24 @@ TEST {
     TABLE {
         NPC
         NPC_ID|NPC_NAME|NPC_ROLE|REGION_ID
-        9|Gaunter ODimm|Mysterious Man|2
+        4|Keira Metz|Sorceress|2
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME|NPC_ID
-        9|Scenes From a Marriage|9
+        3|A Towerful of Mice|4
     }
     TABLE {
         QUEST_MONSTER
         QUEST_ID|MONSTER_ID
-        9|9
+        3|5
     }
     TABLE {
         MONSTER
         MONSTER_ID|MONSTER_NAME|MONSTER_LEVEL|MONSTER_TYPE
-        9|Ekimmara|22|Vampire
+        5|Katakan|20|Vampire
     }
     RESULT {
-        Gaunter ODimm|Scenes From a Marriage|Ekimmara
+        Keira Metz|A Towerful of Mice|Katakan
     }
 }
