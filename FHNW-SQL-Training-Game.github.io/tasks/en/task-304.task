@@ -1,21 +1,20 @@
 METADATA {
     id: task-304
-    name: Full Cartesian Witcher-Quest-Monster
+    name: Witcher Quest Summaries
     color: purple
 }
 
 DESCRIPTION {
-List all Witcher Names, Quest Names and Monster Names even if no Witcher, Quest or Monster is assigned to them, order by Witcher Name, Quest Name, Monster Name.
+For each Witcher list their name, the number of quests they have assigned, total gold reward and total XP reward, ordered by quest count desc then name.
 }
 
 ANSWER {
-SELECT W.WITCHER_NAME, Q.QUEST_NAME, M.MONSTER_NAME
+SELECT W.WITCHER_NAME, COUNT(WQ.QUEST_ID) QUEST_COUNT, SUM(Q.QUEST_GOLD) TOTAL_GOLD, SUM(Q.QUEST_XP) TOTAL_XP
 FROM WITCHER W
-CROSS JOIN QUEST Q
-CROSS JOIN MONSTER M
-LEFT JOIN WITCHER_QUEST WQ ON WQ.WITCHER_ID = W.WITCHER_ID
-LEFT JOIN QUEST_MONSTER QM ON QM.QUEST_ID  = Q.QUEST_ID
-ORDER BY W.WITCHER_NAME, Q.QUEST_NAME, M.MONSTER_NAME;
+LEFT JOIN WITCHER_QUEST WQ ON WQ.WITCHER_ID=W.WITCHER_ID
+LEFT JOIN QUEST Q         ON Q.QUEST_ID=WQ.QUEST_ID
+GROUP BY W.WITCHER_NAME
+ORDER BY QUEST_COUNT DESC, W.WITCHER_NAME;
 }
 
 TEST {
@@ -28,34 +27,22 @@ TEST {
     }
     TABLE {
         QUEST
-        QUEST_ID|QUEST_NAME
-        1|The Beast of White Orchard
-        2|Family Matters
-        6|Imperial Audience
+        QUEST_ID|QUEST_GOLD|QUEST_XP
+        1|100|200
+        2|300|500
+        6|100|50
     }
     TABLE {
         WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        1|1|Completed
-        2|2|In Progress
-    }
-    TABLE {
-        QUEST_MONSTER
-        QUEST_ID|MONSTER_ID
+        WITCHER_ID|QUEST_ID
         1|1
-        2|2
-    }
-    TABLE {
-        MONSTER
-        MONSTER_ID|MONSTER_NAME
-        1|Royal Griffin
-        2|Noonwraith
-        6|Werewolf
+        1|2
+        2|6
     }
     RESULT {
-        Geralt of Rivia|The Beast of White Orchard|Royal Griffin
-        Lambert|Imperial Audience|Werewolf
-        Vesemir|Family Matters|Noonwraith
+        Geralt of Rivia|2|400|700
+        Vesemir        |1|100|50
+        Lambert        |0||
     }
 }
 
@@ -69,35 +56,21 @@ TEST {
     }
     TABLE {
         QUEST
-        QUEST_ID|QUEST_NAME
-        4|Wild at Heart
-        7|Of Swords and Dumplings
-        9|Scenes From a Marriage
+        QUEST_ID|QUEST_GOLD|QUEST_XP
+        4|500|750
+        7|350|450
+        9|900|1200
     }
     TABLE {
         WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        4|4|Not Started
-        5|9|Completed
-        6|7|In Progress
-    }
-    TABLE {
-        QUEST_MONSTER
-        QUEST_ID|MONSTER_ID
-        4|6
-        7|8
-        9|9
-    }
-    TABLE {
-        MONSTER
-        MONSTER_ID|MONSTER_NAME
-        6|Werewolf
-        8|Forktail
-        9|Ekimmara
+        WITCHER_ID|QUEST_ID
+        4|4
+        5|9
+        6|7
     }
     RESULT {
-        Ciri|Scenes From a Marriage|Ekimmara
-        Dandelion|Of Swords and Dumplings|Forktail
-        Eskel|Wild at Heart|Werewolf
+        Eskel    |1|500|750
+        Ciri     |1|900|1200
+        Dandelion|1|350|450
     }
 }
