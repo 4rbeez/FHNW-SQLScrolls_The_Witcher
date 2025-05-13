@@ -11,13 +11,41 @@ Find out which NPC has paid the highest total Gold amount to which Witcher by Li
 ANSWER {
 SELECT N.NPC_NAME, W.WITCHER_NAME, SUM(Q.QUEST_GOLD) AS TOTAL_GOLD_PAID
 FROM NPC N
-JOIN QUEST Q           ON Q.NPC_ID = N.NPC_ID
-JOIN WITCHER_QUEST WQ  ON WQ.QUEST_ID = Q.QUEST_ID
-JOIN WITCHER W         ON W.WITCHER_ID = WQ.WITCHER_ID
+JOIN QUEST Q
+ON Q.NPC_ID = N.NPC_ID
+JOIN WITCHER_QUEST WQ
+ON WQ.QUEST_ID = Q.QUEST_ID
+JOIN WITCHER W
+ON W.WITCHER_ID = WQ.WITCHER_ID
 WHERE WQ.QUEST_STATE = 'Completed'
 GROUP BY N.NPC_NAME, W.WITCHER_NAME
-ORDER BY TOTAL_GOLD_PAID DESC
-LIMIT 1;
+ORDER BY TOTAL_GOLD_PAID DESC LIMIT 1;
+}
+
+TEST {
+    TABLE {
+        NPC
+        NPC_ID|NPC_NAME
+        1|Yennefer von Vengerberg
+    }
+    TABLE {
+        WITCHER
+        WITCHER_ID|WITCHER_NAME
+        1|Geralt of Rivia
+    }
+    TABLE {
+        QUEST
+        QUEST_ID|QUEST_NAME|NPC_ID|QUEST_GOLD
+        1|The Beast of White Orchard|1|100
+    }
+    TABLE {
+        WITCHER_QUEST
+        WITCHER_ID|QUEST_ID|QUEST_STATE
+        1|1|Completed
+    }
+    RESULT {
+        Yennefer von Vengerberg|Geralt of Rivia|100
+    }
 }
 
 TEST {
@@ -44,31 +72,5 @@ TEST {
     }
     RESULT {
         Baron Phillip Strenger|Vesemir|300
-    }
-}
-
-TEST {
-    TABLE {
-        NPC
-        NPC_ID|NPC_NAME
-        1|Yennefer von Vengerberg
-    }
-    TABLE {
-        WITCHER
-        WITCHER_ID|WITCHER_NAME
-        1|Geralt of Rivia
-    }
-    TABLE {
-        QUEST
-        QUEST_ID|QUEST_NAME|NPC_ID|QUEST_GOLD
-        1|The Beast of White Orchard|1|100
-    }
-    TABLE {
-        WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        1|1|Completed
-    }
-    RESULT {
-        Yennefer von Vengerberg|Geralt of Rivia|100
     }
 }
