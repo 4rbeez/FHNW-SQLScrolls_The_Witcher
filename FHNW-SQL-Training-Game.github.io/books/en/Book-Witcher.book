@@ -7,9 +7,15 @@ METADATA {
 }
 
 PAGE {
-     In this book you can challenge yourself with 16 different SQLite queries on the topic of the video game The Witcher.
+     In this book you can challenge yourself with 16 different SQLite queries on the topic of the video game The Witcher 3: Wild Hunt.
 
      Have fun!
+
+    <br />
+    <div class="witcher-title-img">
+        <img src="/img/witcher_title.png">
+    </div>
+
 }
 
 PAGE {
