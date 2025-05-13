@@ -9,13 +9,14 @@ List all Witcher Names, Quest Names and Monster Names even if no Witcher, Quest 
 }
 
 ANSWER {
-SELECT W.WITCHER_NAME, Q.QUEST_NAME, M.MONSTER_NAME
+SELECT W.WITCHER_NAME AS Witcher_Name,
+       Q.QUEST_NAME   AS Quest_Name,
+       M.MONSTER_NAME AS Monster_Name
 FROM WITCHER W
-OUTER JOIN WITCHER_QUEST WQ ON W.WITCHER_ID = WQ.WITCHER_ID
-OUTER JOIN QUEST Q          ON Q.QUEST_ID   = WQ.QUEST_ID
-OUTER JOIN QUEST_MONSTER QM ON Q.QUEST_ID   = QM.QUEST_ID
-OUTER JOIN MONSTER M        ON M.MONSTER_ID = QM.MONSTER_ID
-ORDER BY W.WITCHER_NAME, Q.QUEST_NAME, M.MONSTER_NAME;
+CROSS JOIN QUEST Q
+CROSS JOIN MONSTER M
+LEFT JOIN WITCHER_ITEM WI ON W.WITCHER_ID = WI.WITCHER_ID
+ORDER BY Witcher_Name, Quest_Name, Monster_Name ASC;
 }
 
 TEST {
@@ -34,27 +35,16 @@ TEST {
         6|Imperial Audience
     }
     TABLE {
-        WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        1|1|Completed
-        2|2|In Progress
-    }
-    TABLE {
-        QUEST_MONSTER
-        QUEST_ID|MONSTER_ID
-        1|1
-        2|2
-    }
-    TABLE {
         MONSTER
         MONSTER_ID|MONSTER_NAME
         1|Royal Griffin
         2|Noonwraith
+        6|Werewolf
     }
     RESULT {
         Geralt of Rivia|The Beast of White Orchard|Royal Griffin
-        Vesemir|Family Matters|Noonwraith
-        Lambert|Imperial Audience|
+        Geralt of Rivia|The Beast of White Orchard|Noonwraith
+        Geralt of Rivia|The Beast of White Orchard|Werewolf
     }
 }
 
@@ -64,33 +54,25 @@ TEST {
         WITCHER_ID|WITCHER_NAME
         4|Eskel
         5|Ciri
+        6|Dandelion
     }
     TABLE {
         QUEST
         QUEST_ID|QUEST_NAME
         4|Wild at Heart
+        7|Of Swords and Dumplings
         9|Scenes From a Marriage
-    }
-    TABLE {
-        WITCHER_QUEST
-        WITCHER_ID|QUEST_ID|QUEST_STATE
-        4|4|Not Started
-        5|9|Completed
-    }
-    TABLE {
-        QUEST_MONSTER
-        QUEST_ID|MONSTER_ID
-        4|6
-        9|8
     }
     TABLE {
         MONSTER
         MONSTER_ID|MONSTER_NAME
-        6|Werewolf
         8|Forktail
+        9|Ekimmara
+        10|Fiend
     }
     RESULT {
-        Eskel|Wild at Heart|Werewolf
         Ciri|Scenes From a Marriage|Forktail
+        Ciri|Scenes From a Marriage|Ekimmara
+        Ciri|Scenes From a Marriage|Fiend
     }
 }
