@@ -9,7 +9,7 @@ List all distinct Witchers and the total Gold Reward and XP Reward of the quests
 }
 
 ANSWER {
-SELECT DISTINCT W.WITCHER_NAME, SUM(Q.QUEST_GOLD) AS 'Total Gold Reward', SUM(Q.QUEST_XP) AS 'Total XP Reward'
+SELECT DISTINCT W.WITCHER_NAME, SUM(Q.QUEST_GOLD), SUM(Q.QUEST_XP)
 FROM WITCHER W
 JOIN WITCHER_QUEST WQ
   ON W.WITCHER_ID = WQ.WITCHER_ID

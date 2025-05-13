@@ -11,8 +11,8 @@ List all Witcher Names, Item Types they own, the total value of the items and th
 ANSWER {
 SELECT W.WITCHER_NAME,
        I.ITEM_TYPE,
-       SUM(I.ITEM_PRICE)          AS 'Total Item Value',
-       ROUND(AVG(I.ITEM_LEVEL),0) AS 'Average Item Level'
+       SUM(I.ITEM_PRICE),
+       ROUND(AVG(I.ITEM_LEVEL),0)
 FROM WITCHER W
 JOIN WITCHER_ITEM WI ON W.WITCHER_ID = WI.WITCHER_ID
 JOIN ITEM I         ON I.ITEM_ID      = WI.ITEM_ID
