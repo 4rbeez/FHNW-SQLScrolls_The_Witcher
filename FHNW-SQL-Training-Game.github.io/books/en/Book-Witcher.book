@@ -35,7 +35,20 @@ PAGE {
   }
 }
 
+PAGE {
+    <h1>SQL Scrolls</h1>
+    <h2>Chosen Topic: Video Game - The Witcher 3: Wild Hunt</h2>
+    Authors: Fabian Arnold, Remy Brunner, Silvan Meier, Florian Stiegeler
+    Lecturer: Elzbieta Pustulka</p>
+    Class: Database Technology - PT2b - Basel
+    Date: 13 May 2025
+}
 
+PAGE {
+    The tables in this SQL Scrolls tasks resemble parts of the world of the video game The Witcher 3: Wild Hunt. In this game, the main characters, the Witchers, travel through the game world to take quests from the many NPCs located at different regions. Most of these quests bring different variations of monsters to fight. Additionally, Witchers usually receive gold and XP for quests from which they can obtain different types of items.
+    
+    The following tasks contain 16 different complex select statements, where it is often required to collect and combine data from multiple different tables. 
+}
 
 PAGE {
     Logical diagram of the The Witcher schema.
